@@ -1,6 +1,20 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
+app_store_connect = AppStoreConnect::Client.new
+app_store_connect.create_user_invitation(
+  data: {
+    attributes: {
+      first_name: 'Kyle',
+      last_name: 'Decot',
+      email: 'kyle.decot@icloud.com',
+      roles: ['ADMIN']
+    }
+  }, 
+  relationships: [],
+  type: 'userInvitations'
+)
+
 require 'optparse'
 require 'app_store_connect/version'
 

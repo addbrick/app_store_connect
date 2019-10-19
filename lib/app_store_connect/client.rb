@@ -63,11 +63,8 @@ module AppStoreConnect
       @registry[alias_sym]
     end
 
-    def http_body(web_service_endpoint, **kwargs)
-      "AppStoreConnect::#{web_service_endpoint.http_body_type}"
-        .constantize
-        .new(**kwargs)
-        .to_h
+    def http_body(**kwargs)
+        kwargs
         .deep_transform_keys { |k| k.to_s.camelize(:lower) }
         .to_json
     end
@@ -81,7 +78,7 @@ module AppStoreConnect
         headers: headers
       }
 
-      options[:http_body] = http_body(web_service_endpoint, **kwargs) if web_service_endpoint.http_method == :post
+      options[:http_body] = http_body(**kwargs) if web_service_endpoint.http_method == :post
 
       Request.new(options)
     end
